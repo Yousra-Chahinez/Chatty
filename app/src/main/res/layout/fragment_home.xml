@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:tools="http://schemas.android.com/tools"
+          tools:context=".Fragments.HomeFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+<android.support.constraint.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#FAFAFA"
+          android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/colorPrimaryDark">
+
+        <android.support.constraint.ConstraintLayout
+        android:id="@+id/image_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="170dp">
+
+        <ImageView
+            android:id="@+id/settings_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/settings"
+            android:src="@drawable/settings_icon"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/change_profile_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="-24dp"
+        android:src="@drawable/camera_icon"
+        android:background="@color/colorPrimaryDark"
+        android:contentDescription="@string/change_profile_image"
+        app:layout_constraintRight_toRightOf="@id/profile_image"
+        app:layout_constraintLeft_toLeftOf="@id/profile_image"
+        app:layout_constraintBottom_toBottomOf="@id/profile_image"/>
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/quicksandbold"
+        android:text="@string/username"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/info_constrain_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/default_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/avatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:fontFamily="@font/quicksandregular"
+            android:text="@string/name"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/username2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/quicksandbold"
+            android:text="@string/username"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="@id/text"
+            app:layout_constraintLeft_toLeftOf="@id/default_avatar"/>
+
+        <TextView
+            android:id="@+id/name_description"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="60dp"
+            android:text="@string/description_profile"
+            android:textSize="16sp"
+            android:fontFamily="@font/quicksandregular"
+            app:layout_constraintTop_toBottomOf="@id/username2"
+            app:layout_constraintLeft_toLeftOf="@id/default_avatar"/>
+
+        <ImageView
+            android:id="@+id/change_name"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/modify_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <ImageView
+            android:id="@+id/change_about"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/modify_icon"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line"/>
+
+
+        <ImageView
+            android:id="@+id/about_icon_id"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="105dp"
+            android:src="@drawable/info_icon"
+            app:layout_constraintTop_toBottomOf="@id/default_avatar"/>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="290dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="60dp"
+            android:background="#DFDFDF"
+            app:layout_constraintTop_toBottomOf="@id/name_description"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/about_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="60dp"
+            android:fontFamily="@font/quicksandregular"
+            android:text="@string/about"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line"/>
+
+        <TextView
+            android:id="@+id/description_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/quicksandbold"
+            android:textSize="15sp"
+            android:maxWidth="250dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/about_id"/>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="290dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="60dp"
+            android:background="#DFDFDF"
+            app:layout_constraintTop_toBottomOf="@id/description_about"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <ImageView
+            android:id="@+id/email_address"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/email"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/about_icon_id" />
+
+        <TextView
+            android:id="@+id/hint_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="60dp"
+            android:text="@string/email"
+            android:textSize="17sp"
+            android:fontFamily="@font/quicksandregular"
+            app:layout_constraintLeft_toLeftOf="@id/email_address"
+            app:layout_constraintTop_toBottomOf="@id/line2"/>
+
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="60dp"
+            android:text="@string/mail"
+            android:textSize="15sp"
+            android:fontFamily="@font/quicksandbold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hint_email"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
+
+</ScrollView>

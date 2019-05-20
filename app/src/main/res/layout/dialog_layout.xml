@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardCornerRadius="30dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constrain_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_gravity="center">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/img_constraint_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/alert_image"
+            android:layout_width="420dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"/>
+
+        </android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/confirmation_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:text="@string/logout_confirmation"
+            android:fontFamily="@font/quicksandbold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/img_constraint_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_logout2"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_maker"
+            android:fontFamily="@font/quicksandbold"
+            android:text="@string/logout2"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/confirmation_logout"
+            app:layout_constraintBottom_toBottomOf="@id/constrain_dialog"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_cancel_logout"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_maker_dialog"
+            android:fontFamily="@font/quicksandbold"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/confirmation_logout"
+            app:layout_constraintBottom_toBottomOf="@id/constrain_dialog"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

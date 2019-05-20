@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
+          tools:context=".Fragments.ChatsFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#FFFFFF">
+
+       <include android:id="@+id/toolbar3"
+        layout="@layout/app_bar_layout"/>
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="@string/app_name"
+        android:fontFamily="@font/quicksandbold"
+        android:textColor="@android:color/white"
+        android:textSize="23sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>-->
+    
+    <EditText
+        android:id="@+id/search_editText"
+        android:layout_width="280dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/search_layout"
+        android:hint="@string/serach_here"
+        android:fontFamily="@font/quicksandregular"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar3"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_search"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        app:fabCustomSize="40dp"
+        android:src="@drawable/search_icon"
+        app:layout_constraintLeft_toRightOf="@id/search_editText"
+        app:layout_constraintTop_toBottomOf="@id/toolbar3"/>
+
+    <!--
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+         </android.support.v4.widget.SwipeRefreshLayout>
+         -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="60dp"
+        android:scrollbars="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_editText"/>
+
+</android.support.constraint.ConstraintLayout>

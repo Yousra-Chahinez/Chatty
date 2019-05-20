@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/section_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DFDFDF"
+        android:textSize="18sp"
+        android:fontFamily="@font/quicksandbold"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+</android.support.constraint.ConstraintLayout>

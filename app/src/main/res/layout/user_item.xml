@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <!-- android:background="@drawable/shape_border" in ConstraintLayout -->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/username"
+        android:fontFamily="@font/quicksandregular"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/profile_image" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_on"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="-25dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/avatar"
+        app:civ_border_width="10dp"
+        app:civ_border_color="#05DF29"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        app:layout_constraintLeft_toRightOf="@id/profile_image" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_off"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="-25dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/avatar"
+        app:civ_border_color="#bfbfbf"
+        app:civ_border_width="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        app:layout_constraintLeft_toRightOf="@id/profile_image" />
+
+    <TextView
+        android:id="@+id/last_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="15dp"
+        android:paddingTop="2dp"
+        android:fontFamily="@font/quicksandregular"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintLeft_toRightOf="@id/profile_image"/>
+
+    <TextView
+        android:id="@+id/time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="15dp"
+        android:fontFamily="@font/quicksandregular"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

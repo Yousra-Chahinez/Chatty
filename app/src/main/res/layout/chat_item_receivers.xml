@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="300dp"
+          android:layout_height="wrap_content"
+          android:padding="5dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/contraint_image"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/custom_profile_image">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@android:color/white"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/group_chat_text_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:padding="8dp"
+        android:background="@drawable/background_left"
+        android:text="@string/salam_alikom"
+        android:fontFamily="@font/quicksandregular"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@id/contraint_image"/>
+
+    <TextView
+        android:id="@+id/time_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/quicksandregular"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/show_message"/>
+
+</android.support.constraint.ConstraintLayout>

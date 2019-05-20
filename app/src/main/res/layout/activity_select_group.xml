@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    tools:context=".SelectGroupActivity">
+
+    <include android:id="@+id/toolbar"
+        layout="@layout/app_bar_layout"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="15dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_close"
+        android:contentDescription="@string/close"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+         </android.support.v4.widget.SwipeRefreshLayout>
+         -->
+    <Button
+        android:id="@+id/create_group_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:text="@string/create"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:fontFamily="@font/quicksandbold"
+        android:textSize="20sp"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/horizontalRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_select_groups"
+        android:layout_width="match_parent"
+        android:layout_height="590dp"
+        android:layout_marginTop="15dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/horizontalRecyclerView"/>
+
+</android.support.constraint.ConstraintLayout>

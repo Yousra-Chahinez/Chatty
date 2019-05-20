@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/enter_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_about"
+        android:textSize="17sp"
+        android:fontFamily="@font/quicksandbold"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edittextrqius"
+        app:layout_constraintTop_toBottomOf="@id/enter_about">
+
+        <EditText
+            android:id="@+id/input_about"
+            android:layout_width="245dp"
+            android:layout_height="35dp"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:maxLength="70"
+            android:hint="@string/name"
+            android:fontFamily="@font/quicksandregular"
+            android:inputType="textMultiLine"
+            app:layout_constraintRight_toLeftOf="@id/CharacterCount2"/>
+
+        <TextView
+            android:id="@+id/CharacterCount2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/number2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

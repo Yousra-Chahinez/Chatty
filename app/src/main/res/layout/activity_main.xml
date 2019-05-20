@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- container for fragments -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="569dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/Widget.BottomNavigationView"
+        app:labelVisibilityMode="labeled"
+        app:itemTextColor="@android:color/white"
+        app:menu="@menu/bottom_navigation"
+        app:itemIconTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- android:background="?android:attr/windowBackground"-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_layout_connexion"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#808080"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+        <TextView
+            android:id="@+id/textView_noInternetConnexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_internet_connexion"
+            android:fontFamily="@font/quicksandregular"
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+            android:id="@+id/icon_NoInternetConnexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/warning_icon"
+            app:layout_constraintRight_toLeftOf="@id/textView_noInternetConnexion"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_layout_Connexion"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#32CD32	"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+        <TextView
+            android:id="@+id/textView_InternetConnexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_online"
+            android:fontFamily="@font/quicksandregular"
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

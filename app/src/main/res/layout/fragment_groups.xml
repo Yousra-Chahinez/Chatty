@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Fragments.GroupsFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <include android:id="@+id/toolbar"
+        layout="@layout/app_bar_layout"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="@string/app_name"
+        android:fontFamily="@font/quicksandbold"
+        android:textColor="@android:color/white"
+        android:textSize="23sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- android:dividerHeight="10.0sp" in ListView-->
+
+    <TextView
+        android:id="@+id/rooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:text="@string/my_rooms"
+        android:textSize="25sp"
+        android:fontFamily="@font/quicksandbold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+    <TextView
+        android:id="@+id/nb_of_rooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/quicksandregular"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rooms"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_groups"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="35dp"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/nb_of_rooms"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_create_group_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="35dp"
+        app:fabCustomSize="50dp"
+        android:src="@drawable/add_groups"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
