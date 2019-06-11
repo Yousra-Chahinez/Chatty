@@ -1,27 +1,22 @@
 package com.example.azzem.chatty.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.azzem.chatty.GroupChatActivity;
-import com.example.azzem.chatty.Model.Groups;
 import com.example.azzem.chatty.Model.GroupsFireStore;
 import com.example.azzem.chatty.R;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -69,7 +64,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.groupsViewHo
 
         final GroupsFireStore groups = mGroups.get(position);
         groupsViewHolder.group_name.setText(groups.getGroupName());
-        System.out.println("group document id" + groups.getDocumentId());
+        //System.out.println("group document id" + groups.getDocumentId());
 
 //        assert set1 != null;
 //        if(!groups.getMembers().equals(set1.toString().replace("[[", "").replace("]]", "")))
@@ -103,17 +98,17 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.groupsViewHo
             }
         });
 
-        SharedPreferences myPrefUsername = mContext.getSharedPreferences("username", Context.MODE_PRIVATE);
-        Set<String> nameSet = myPrefUsername.getStringSet("name", null);
-
-        assert nameSet != null;
-        for(int j=0; j<nameSet.size(); j++)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(nameSet);
-            groupsViewHolder.user_name.setText(stringBuilder.toString().replace(",", "&")
-                    .replace("]", "").replace("[", ""));
-        }
+//        SharedPreferences myPrefUsername = mContext.getSharedPreferences("username", Context.MODE_PRIVATE);
+//        Set<String> nameSet = myPrefUsername.getStringSet("name", null);
+//
+//        assert nameSet != null;
+//        for(int j=0; j<nameSet.size(); j++)
+//        {
+//            StringBuilder stringBuilder = new StringBuilder();
+//            stringBuilder.append(nameSet);
+//            groupsViewHolder.user_name.setText(stringBuilder.toString().replace(",", "&")
+//                    .replace("]", "").replace("[", ""));
+//        }
     }
     @Override
     public int getItemCount()

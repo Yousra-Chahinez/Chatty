@@ -1,43 +1,64 @@
 package com.example.azzem.chatty.Model;
 
-/*public class Chat
-{
-    private String sender;
-    private String receiver;
-    private String message;
+import com.google.firebase.firestore.Exclude;
 
-    public Chat(String sender, String receiver, String message)
-    {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.message = message;
+import java.util.List;
+
+public class Chat{
+    private String documentid;
+    private List<String> participants;
+    private String receiverId;
+    private String receiverName;
+    private String receiverImage;
+
+    public Chat(List<String> participants, String receiverName, String receiverImage, String receiverId) {
+        this.participants = participants;
+        this.receiverName = receiverName;
+        this.receiverImage = receiverImage;
+        this.receiverId = receiverId;
     }
 
-    public Chat()
-    {
+    public Chat() {
     }
 
-    public String getSender() {
-        return sender;
+    public List<String> getParticipants() {
+        return participants;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setParticipants(List<String> participants) {
+        this.participants = participants;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
-    public String getMessage() {
-        return message;
+    public String getReceiverImage() {
+        return receiverImage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setReceiverImage(String receiverImage) {
+        this.receiverImage = receiverImage;
     }
-}*/
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    @Exclude
+    public String getDocumentid() {
+        return documentid;
+    }
+
+    public void setDocumentid(String documentid) {
+        this.documentid = documentid;
+    }
+}

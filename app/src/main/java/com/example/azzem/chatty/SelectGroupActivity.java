@@ -5,18 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.azzem.chatty.Adapter.SelectGroupAdapater;
@@ -29,42 +28,34 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.annotation.Nullable;
 
 public class SelectGroupActivity extends AppCompatActivity {
     private List<User> mUsers;
     private RecyclerView mRecyclerView, horizontalRecyclerView;
     private SelectGroupAdapater selectGroupAdapater;
     private Button btn_create_group_chat;
+    private String currentTime;
     private DatabaseReference groupNameRef;
     private FirebaseUser firebaseUser;
     FirebaseFirestore rootRef;
@@ -72,6 +63,7 @@ public class SelectGroupActivity extends AppCompatActivity {
     //The requestCode for --> identify from which Intent you came back.
     private static final int GALLERY_PICK = 1; ///for request.
 
+    Date currentTime2 = Calendar.getInstance().getTime();
     StorageReference groupImageReference;
     FirebaseFirestore firebaseFirestore;
     CollectionReference groupRef;
@@ -101,7 +93,7 @@ public class SelectGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_group);
+        setContentView(R.layout.activity_select_groupe);
         mRecyclerView = findViewById(R.id.recycler_view_select_groups);
         btn_create_group_chat = findViewById(R.id.create_group_chat);
         mRecyclerView.setHasFixedSize(true);
@@ -224,7 +216,7 @@ public class SelectGroupActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @android.support.annotation.Nullable Intent data)
+    protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         //Check the request code.
@@ -302,7 +294,8 @@ public class SelectGroupActivity extends AppCompatActivity {
         {
             str[j] = par.get(j);
         }
-        final GroupsFireStore groupsFireStore = new GroupsFireStore(Arrays.asList(str), groupName, firebaseUser.getUid(), "default");
+        final GroupsFireStore groupsFireStore = new GroupsFireStore(Arrays.asList(str), groupName, firebaseUser.getUid(),
+                "default");
         firebaseFirestore.collection("groups")
                          .add(groupsFireStore)
                          .addOnSuccessListener(new OnSuccessListener<DocumentReference>()
@@ -310,10 +303,11 @@ public class SelectGroupActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(final DocumentReference documentReference)
                     {
-                        groupsFireStore.setDocumentId(documentReference.getId());
-                        groupsFireStore.setParticipants_names(Arrays.asList(str2));
+                         groupsFireStore.setDocumentId(documentReference.getId());
+                         groupsFireStore.setParticipants_names(Arrays.asList(str2));
 //                        Map<String, Object> msg = new HashMap<>();
-//                        msg.put("msgBody", "Hi !");
+//
+//               msg.put("msgBody", "Hi !");
 //                        msg.put("time", com.google.firebase.firestore.FieldValue.serverTimestamp());
 //                        msg.put("type", "text");
 
@@ -362,7 +356,20 @@ public class SelectGroupActivity extends AppCompatActivity {
                         }
                         //--------------------------------------------------------------------------------//
 
+                        //---Now get the time
+                        Calendar calForTime = Calendar.getInstance();
+                        //And for format pm, am...--> hh, time --> mm and ss for seconds if u want
+                        SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm");
+                        currentTime = currentTimeFormat.format(calForTime.getTime());
+                        //---------------------
+
                         MessageG messageGroup = new MessageG("Hi", firebaseUser.getUid(), "text");
+
+//                        Map<String, Object> msg = new HashMap<>();
+//                        msg.put("msgBody", "Hi !");
+//                        msg.put("Admin", firebaseUser.getUid());
+//                        msg.put("time", com.google.firebase.firestore.FieldValue.serverTimestamp());
+//                        msg.put("type", "text");
 
                         documentReference.collection("messages")
                                          .document()

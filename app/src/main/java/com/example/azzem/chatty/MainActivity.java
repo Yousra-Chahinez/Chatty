@@ -4,24 +4,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.azzem.chatty.Fragments.ChatsFragment;
 import com.example.azzem.chatty.Fragments.GroupsFragment;
@@ -30,9 +26,6 @@ import com.example.azzem.chatty.Fragments.PeopleFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -43,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     private BottomNavigationView bottomNav;
     private DatabaseReference refernce;
     private FirebaseUser firebaseUser;
-    private Intent i;
+    private Intent i, i2;
     //Typeface myfont;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,12 +62,17 @@ public class MainActivity extends AppCompatActivity
 
         //--------------
         i = getIntent();
-        String data = i.getStringExtra("a");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new GroupsFragment());
         fragmentTransaction.commit();
         bottomNav.setSelectedItemId(R.id.nav_groups);
         //--------------
+
+        i2 = getIntent();
+        FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction1.replace(R.id.fragment_container, new ChatsFragment());
+        fragmentTransaction1.commit();
+        bottomNav.setSelectedItemId(R.id.nav_chats);
 
     }
 
@@ -105,8 +103,6 @@ public class MainActivity extends AppCompatActivity
                         case R.id.nav_home:
                             selectedFragment = new HomeFragment();
                             break;
-                        case R.id.nav_people:
-                             selectedFragment = new PeopleFragment();
                     }
                     //Pass a fragment twhich i want to show
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container

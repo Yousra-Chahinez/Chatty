@@ -1,21 +1,24 @@
 package com.example.azzem.chatty;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.EditText;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,24 +26,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.rengwuxian.materialedittext.MaterialEditText;
+
 import java.util.HashMap;
 
 
 public class RegisterActivity extends AppCompatActivity
 {
-    private Toolbar toolbar;
-    private MaterialEditText username, email_address, password;
-    private Button btn_register;
-    private TextView login_textView;
+    private EditText username, password, email_address;
+    private FloatingActionButton btn_register;
+    private Button login_button;
     private ProgressDialog progressDialog;
     FirebaseFirestore rootRef;
     DocumentReference uiRef;
@@ -55,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity
         //initialize controllers
         initViews();
         //-------GO TO LOGIN----------//
-        login_textView.setOnClickListener(new View.OnClickListener() {
+        login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent_login = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -82,7 +81,24 @@ public class RegisterActivity extends AppCompatActivity
                 final String text_password = password.getText().toString();
 
                 validate(name, text_email, text_password);
-
+                if(!isNetworkAvailable())
+                {
+                    AlertDialog.Builder networkDialog = new AlertDialog.Builder(RegisterActivity.this);
+                    networkDialog.setTitle("No Internet Connection");
+                    networkDialog.setMessage("Sorry, No Internet connectivity detected. Please reconnect " +
+                            "and try again.");
+                    networkDialog.setCancelable(true);
+                    networkDialog.setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Choose alert dialog when this button is clicked
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alertDialog = networkDialog.create();
+                    alertDialog.show();
+                }
+                else
                 if (!validate(name, text_email, text_password)) {
                     //Error
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
@@ -118,17 +134,22 @@ public class RegisterActivity extends AppCompatActivity
         email_address = findViewById(R.id.email_address);
         password = findViewById(R.id.password);
         btn_register = findViewById(R.id.btn_register);
-        login_textView = findViewById(R.id.login_textView);
+        login_button = findViewById(R.id.login_button);
     }
+
     public boolean validate(String name, String text_email, String text_password)
     {
         final boolean[] valid = {true};
         //Verify text_email !!
         if(text_email.isEmpty())
         {
-            email_address.setError("Enter a valid email address");
+            email_address.setError("Field can't be empty !");
             valid[0] = false;
-        } else
+        } else if(!Patterns.EMAIL_ADDRESS.matcher(text_email).matches())
+        {
+            email_address.setError("Please enter a valid email address");
+        }
+        else
             {
             email_address.setError(null);
             }
@@ -140,28 +161,6 @@ public class RegisterActivity extends AppCompatActivity
             {
             password.setError(null);
             }
-        Query unique_username_query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(name);
-        unique_username_query.addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                if(dataSnapshot.getChildrenCount()>0)
-                {
-                    username.setError("Choose another name please");
-                    valid[0] = false;
-                    System.out.println("dok hona wech taffichi " + dataSnapshot.getChildrenCount());
-                }
-                else
-                {
-                    username.setError(null);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
-            }
-        });
         if(name.isEmpty() || name.length() < 3)
         {
             username.setError("at least 3 characters");
@@ -179,7 +178,8 @@ public class RegisterActivity extends AppCompatActivity
         firebaseAuth.createUserWithEmailAndPassword(text_email, text_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if(task.isSuccessful())
+                {
                     progressDialog.dismiss();
                     //getCurrentUser method to get the user's account data.
                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -217,21 +217,65 @@ public class RegisterActivity extends AppCompatActivity
                                     startActivity(main_intent);
                                     finish();
                                 }
-                            }).addOnFailureListener(new OnFailureListener()
+                                }).addOnFailureListener(new OnFailureListener()
                             {
                                 @Override
                                 public void onFailure(@NonNull Exception e)
                                 {
-                                    Log.w("RegisterActivity", "Error writing document",
-                                            e);
+                                    Log.w("RegisterActivity", "Error writing document", e);
                                     progressDialog.dismiss();
-                                    //Toast
-                                    System.out.println("Erreur");
                                 }
                             });
                     //----------------------------------------------------------------------------//
                 }
+                else
+                {
+                    progressDialog.dismiss();
+                    firebaseAuth.fetchSignInMethodsForEmail(text_email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task<SignInMethodQueryResult> task)
+                        {
+                            boolean check = !task.getResult().getSignInMethods().isEmpty();
+                            if(check)
+                            {
+                                email_address.setError("Email address already exist please choose another one.");
+                            }
+                        }
+                    });
+                }
             }
         });
     }
+
+    private boolean isNetworkAvailable()
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }
+
+/*UNIQUE USERNAME
+*        Query unique_username_query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").equalTo(name);
+        unique_username_query.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.getChildrenCount()>0)
+                {
+                    username.setError("Choose another name please");
+                    valid[0] = false;
+                    System.out.println("dok hona wech taffichi " + dataSnapshot.getChildrenCount());
+                }
+                else
+                {
+                    username.setError(null);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+            }
+        });*/

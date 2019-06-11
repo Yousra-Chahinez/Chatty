@@ -2,14 +2,14 @@ package com.example.azzem.chatty;
 
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -25,12 +25,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.ServerTimestamp;
 import com.squareup.picasso.Picasso;
@@ -39,10 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -55,9 +53,10 @@ public class GroupChatActivity extends AppCompatActivity {
     private String CurrentGroupName, CurrentUserID, CurrentUserName, currentDate, currentTime;
     private final String TAG = "GroupChatActivity";
     private GroupMessageAdapter groupMessageAdapter;
-    private List<MessageG> mMessageList = new ArrayList<>();
+    private List<MessageG> mMessageList;
     private RecyclerView messages_recyclerView;
     private LinearLayoutManager mLinearLayoutManager;
+    private Date currentTime2 = Calendar.getInstance().getTime();
     FirebaseUser fuser;
     CollectionReference messageRef;
     DocumentReference infoGroupRef;
@@ -65,11 +64,13 @@ public class GroupChatActivity extends AppCompatActivity {
     Date date;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
         //Initialize controllers
         initViews();
+        mMessageList = new ArrayList<>();
         messages_recyclerView = findViewById(R.id.recycler_view_messages_group);
         messages_recyclerView.setHasFixedSize(true);
         groupMessageAdapter = new GroupMessageAdapter(mMessageList, GroupChatActivity.this);
@@ -92,7 +93,8 @@ public class GroupChatActivity extends AppCompatActivity {
         System.out.println("document id " + documentId);
 
         group_name.setText(groupName);
-        if (groupImage != null) {
+        if (groupImage != null)
+        {
             Picasso.get().load(image_group).into(groupImage);
             System.out.println("groupImage2 " + image_group);
         }
@@ -101,8 +103,9 @@ public class GroupChatActivity extends AppCompatActivity {
                 + "messages");
 
         infoGroupRef = FirebaseFirestore.getInstance().collection("/groups").document(documentId);
+
         infoGroupRef.get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
@@ -134,12 +137,13 @@ public class GroupChatActivity extends AppCompatActivity {
         //--------------------------LISTENER TO SEND MESSAGE BUTTON-------------------------------//
         btn_send_message.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 sendMessageIntoDatabase();
             }
         });
-        //----------------------------------------------------------------------------------------//
         DisplayMessages();
+        //----------------------------------------------------------------------------------------//
     }
 
     private void initViews() {
@@ -151,14 +155,24 @@ public class GroupChatActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
     }
 
-    private void sendMessageIntoDatabase() {
+    private void sendMessageIntoDatabase()
+    {
         final String message = text_send.getText().toString();
-        if (message.equals("")) {
+        if (message.equals(""))
+        {
             Toast.makeText(GroupChatActivity.this, "Empty !", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else
+        {
+            //---get time.
+            Calendar calForTime = Calendar.getInstance();
+            //And for format pm, am...--> hh, time --> mm and ss for seconds if u want
+            SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm");
+            currentTime = currentTimeFormat.format(calForTime.getTime());
+            //---------------------
             MessageG messageG = new MessageG(message, fuser.getUid(), "text");
             messageRef.add(messageG)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                      .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d(TAG, "SUCCESS ADDING MESSAGE");
@@ -177,42 +191,31 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void DisplayMessages()
     {
-        messageRef.get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        messageRef.orderBy("date", Query.Direction.ASCENDING)
+                  .addSnapshotListener(this, new EventListener<QuerySnapshot>()
+                {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                            MessageG messageG = documentSnapshot.toObject(MessageG.class);
-                            mMessageList.add(messageG);
-                            groupMessageAdapter.notifyDataSetChanged();
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e)
+                    {
+                        if(e!=null)
+                        {
+                            return;
+                        }
+                        for(DocumentChange dc : queryDocumentSnapshots.getDocumentChanges())
+                        {
+                            if (dc.getType() == DocumentChange.Type.ADDED)
+                            {
+                                //DocumentSnapshot documentSnapshot = dc.getDocument();
+
+                                MessageG messageG = dc.getDocument().toObject(MessageG.class);
+                                mMessageList.add(messageG);
+                                groupMessageAdapter.notifyDataSetChanged();
+                            }
                         }
                     }
                 });
     }
 }
-
-//        messageRef.addSnapshotListener(this, new EventListener<QuerySnapshot>()
-//        {
-//            @Override
-//            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e)
-//            {
-//                if(e!=null)
-//                {
-//                    return;
-//                }
-//                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
-//                {
-//                    MessageG messageG = documentSnapshot.toObject(MessageG.class);
-//                    mMessageList.add(messageG);
-//                    groupMessageAdapter.notifyDataSetChanged();
-//                }
-//            }
-//        });
-//    }
-
-
-
-
 
 
 

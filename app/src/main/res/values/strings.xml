@@ -5,12 +5,12 @@
     <string name="Chatty">Chatty is the easy way to connect \n with friends and family for free \n without ads.</string>
     <string name="start_chat">Start Chat</string>
     <string name="Create_Account">CREATE ACCOUNT</string>
-    <string name="username">Username</string>
-    <string name="email">E-Mail Address</string>
-    <string name="mot_de_passe">Password</string>
+    <string name="username">Your name</string>
+    <string name="email">Your E-Mail Address</string>
+    <string name="mot_de_passe">Your Password</string>
     <string name="create_an_account_to_get_all_n_feature">Create an account to get all feature</string>
     <string name="register">Register</string>
-    <string name="have_account">Already have account ?</string>
+    <string name="sign_up">Sign up</string>
     <string name="test">Button</string>
     <string name="next">Next</string>
     <string name="button">Button</string>
@@ -19,12 +19,12 @@
     <string name="textview2">Textview</string>
     <string name="welcome_back">Welcome Back,</string>
     <string name="sign_in_to_continue">Sign in to continue</string>
-    <string name="register_here">Register here</string>
+    <string name="register_here"><u>Sign up</u></string>
     <string name="new_user">New user ?</string>
-    <string name="login">Login</string>
-    <string name="forgot_password">Forgot password ?</string>
+    <string name="sign_in"><u>Sign in</u></string>
+    <string name="login">Sign in</string>
+    <string name="forgot_password"><u>Forgot password ?</u></string>
     <string name="it_s_okay_reset_your_password">It\'s okay! Reset your password</string>
-    <string name="enter_your_e_mail">Enter Your E-Mail</string>
     <string name="reset">Continue</string>
     <string name="textview">TextView</string>
     <string name="logout">\t Log Out</string>
@@ -49,7 +49,7 @@
     <string name="create_group">Create Group</string>
     <string name="please_write_your_message_here">Write your message here</string>
     <string name="search">Search...</string>
-    <string name="signup">Sign Up</string>
+    <string name="signup">Create \nAccount</string>
     <string name="create_account_to_get_all_features">Create account to get all features.</string>
     <string name="home">Home</string>
     <string name="groups">Groups</string>
@@ -106,4 +106,8 @@
     <string name="add_about">Add about</string>
     <string name="number2">70</string>
     <string name="insert_emodji">Insert Emodji</string>
+    <string name="reset_password_description">Enter your email address below to receive your password reset instructions.</string>
+    <string name="users">Users</string>
+    <string name="send_message">Send message</string>
+    <string name="msgs">Messages</string>
 </resources>

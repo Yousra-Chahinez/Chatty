@@ -1,5 +1,7 @@
 package com.example.azzem.chatty.Model;
 
+import com.google.firebase.firestore.Exclude;
+
 public class User {
     private String id;
     private String username;

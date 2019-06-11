@@ -1,23 +1,26 @@
 package com.example.azzem.chatty.Model;
 
 
-import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MessageG
 {
-    public String msg;
-    public String from;
-    public String type;
+    private String msg;
+    private String from;
+    private String type;
+    @ServerTimestamp
+    private Date date;
 
     public MessageG(String msg, String from, String type) {
         this.msg = msg;
         this.from = from;
         this.type = type;
+        //this.date = date;
     }
 
     public MessageG() {}
@@ -45,5 +48,13 @@ public class MessageG
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

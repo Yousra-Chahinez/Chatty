@@ -1,31 +1,35 @@
 package com.example.azzem.chatty;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.ActivityOptions;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button login_btn;
-    private MaterialEditText email_address, password;
-    private TextView register_textView, forgot_psw;
+    private FloatingActionButton login_btn;
+    private EditText email_address, password;
+    private Button register_button, forgot_psw;
+    private ImageButton btn_cancel;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     private ProgressDialog progressDialog;
@@ -53,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         //initialize controllers
         initViews();
         //------GO TO REGISTER-------//
-        register_textView.setOnClickListener(new View.OnClickListener() {
+        register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent register_intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -73,6 +77,28 @@ public class LoginActivity extends AppCompatActivity {
                 String text_email = email_address.getText().toString();
                 String text_password = password.getText().toString();
                 validate(text_email, text_password);
+                if(!isNetworkAvailable())
+                {
+                    //erreur
+                    AlertDialog.Builder networkDialog = new AlertDialog.Builder(LoginActivity.this);
+                    networkDialog.setTitle("No Internet Connection");
+                    networkDialog.setMessage("Sorry, No Internet connectivity detected. Please reconnect " +
+                            "and try again.");
+                    //builder.setIcon(R.drawable.ic_action_name);
+                    networkDialog.setCancelable(true); //by default it is cancelable
+                    //set Negative/No button click listener
+                    //Or builder.setNegativeButton("Ok",null);
+                    networkDialog.setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Choose alert dialog when this button is clicked
+                            dialog.cancel();
+                        }
+                    });
+                    //create alert dialog
+                    AlertDialog alertDialog = networkDialog.create();
+                    alertDialog.show();
+                } else
                 if(!validate(text_email, text_password))
                 {
                     //erreur
@@ -116,14 +142,27 @@ public class LoginActivity extends AppCompatActivity {
         });
         //--------------------------//
 
+        //-----GO TO REGISTER ACTIVITY-----//
+        btn_cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
+        //--------------------------//
+
     }
     private void initViews()
     {
         login_btn = findViewById(R.id.btn_login);
         email_address = findViewById(R.id.email_address);
         password = findViewById(R.id.password);
-        register_textView = findViewById(R.id.register_textView);
+        register_button = findViewById(R.id.register_button);
         forgot_psw = findViewById(R.id.forgot_psw);
+        btn_cancel = findViewById(R.id.btn_cancel);
     }
 
     public boolean validate(String text_email, String text_password)
@@ -131,9 +170,13 @@ public class LoginActivity extends AppCompatActivity {
         boolean valid = true;
         //Verify email !!
         if(text_email.isEmpty()){
-            email_address.setError("Enter a valid email address");
+            email_address.setError("Field can't be empty !");
             valid = false;
-        } else {
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(text_email).matches()){
+            email_address.setError("Please enter a valid email address");
+        }
+        else {
             email_address.setError(null);
         }
         if(text_password.isEmpty() || text_password.length() < 6){
@@ -158,7 +201,8 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     Intent main_intent = new Intent(LoginActivity.this, MainActivity.class);
                     main_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(main_intent);
+                    startActivity(main_intent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity
+                    .this).toBundle());
                     finish();
                 }
                 else
@@ -166,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setTitle("Authentication failed");
-                    builder.setMessage("Verify that you have entered the correct email or password.");
+                    builder.setMessage("Please check that you have entered the correct email or password.");
                     //builder.setIcon(R.drawable.ic_action_name);
                     builder.setCancelable(true); //by default it is cancelable
                     //set positive /Yes button clck listener
@@ -191,5 +235,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
             }
         });
+    }
+    private boolean isNetworkAvailable()
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
   }

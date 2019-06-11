@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,29 +12,34 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="569dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigationCard"/>
 
-    <android.support.design.widget.BottomNavigationView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottom_navigationCard"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:cardCornerRadius="30dp"
+        android:elevation="70dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:layout_height="55dp"
+        android:background="@android:color/white"
         android:theme="@style/Widget.BottomNavigationView"
-        app:labelVisibilityMode="labeled"
-        app:itemTextColor="@android:color/white"
-        app:menu="@menu/bottom_navigation"
-        app:itemIconTint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_navigation"/>
 
+    </androidx.cardview.widget.CardView>
     <!-- android:background="?android:attr/windowBackground"-->
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout_connexion"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:background="#808080"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigationCard">
 
         <TextView
             android:id="@+id/textView_noInternetConnexion"
@@ -44,6 +49,7 @@
             android:fontFamily="@font/quicksandregular"
             android:textAppearance="?android:attr/textAppearance"
             android:textColor="@android:color/white"
+            android:gravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,16 +65,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
         
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout_Connexion"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:background="#32CD32	"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigationCard">
 
         <TextView
             android:id="@+id/textView_InternetConnexion"
@@ -83,6 +88,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
