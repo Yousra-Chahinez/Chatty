@@ -6,6 +6,16 @@
           android:layout_height="wrap_content"
           android:padding="5dp">
 
+    <TextView
+        android:id="@+id/name_of_participants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:visibility="gone"
+        android:fontFamily="@font/quicksandregular"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/profile_image"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="wrap_content"
@@ -13,18 +23,39 @@
         android:background="#FFFFFF"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/group_chat_text_display"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintShowMessage"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="@drawable/background_right"
-        android:text="@string/w_alikom_salam"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/quicksandregular"
-        android:textSize="18sp"
+        android:layout_marginStart="70dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/group_chat_text_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@drawable/background_right"
+            android:text="@string/w_alikom_salam"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/quicksandregular"
+            android:textSize="18sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/message_image_layout2"
+            android:layout_width="230dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/image_msg"
+            android:scaleType="fitXY"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/group_chat_text_display"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/time_textView"
@@ -32,8 +63,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="50dp"
+        android:visibility="gone"
         android:fontFamily="@font/quicksandregular"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/show_message"/>
+        app:layout_constraintTop_toBottomOf="@id/constraintShowMessage"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

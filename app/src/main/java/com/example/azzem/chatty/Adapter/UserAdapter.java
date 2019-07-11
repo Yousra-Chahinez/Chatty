@@ -50,7 +50,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ChatsViewHolde
 
        public class ChatsViewHolder2 extends RecyclerView.ViewHolder
     {
-        private TextView username, lastMessage, lastTimeTextView;
+        private TextView username, lastMessage, lastTimeTextView, textAbout;
         private CircleImageView profile_image;
 
         public ChatsViewHolder2(View itemView)
@@ -60,6 +60,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ChatsViewHolde
             profile_image = itemView.findViewById(R.id.profile_image);
             lastMessage = itemView.findViewById(R.id.last_message);
             lastTimeTextView = itemView.findViewById(R.id.time_text_view);
+            textAbout = itemView.findViewById(R.id.about_text);
         }
     }
 
@@ -76,18 +77,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ChatsViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ChatsViewHolder2 holder, final int position) {
+    public void onBindViewHolder(@NonNull final ChatsViewHolder2 holder, final int position)
+    {
 
         //-------------------SHOW USERNAME AND PROFILE IMAGE IN USER ITEM-------------------------//
         final Chat chat = mChats.get(position);
+
+        holder.textAbout.setVisibility(View.GONE);
+
         holder.username.setText(chat.getReceiverName());
 
-        if (chat.getReceiverImage().equals("default")) {
-            //holder.profile_image.setImageResource(R.drawable.avatar);
+        System.out.println("ercname "+chat.getReceiverName());
+        System.out.println("resimage "+chat.getReceiverImage());
 
-            String letter = String.valueOf(getItem(position).toUpperCase().charAt(0));
+        if (chat.getReceiverImage().equals("default"))
+        {
+            String letter = String.valueOf(chat.getReceiverName().toUpperCase().charAt(0));
 
-            color = generator.getColor(getItem(position));
+            color = R.color.colorPrimaryDark;
 
             TextDrawable drawable = TextDrawable.builder().buildRound(letter, color); // radius in px
 
@@ -106,7 +113,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ChatsViewHolde
                     Intent message_intent = new Intent(mContext, MessageActivity.class);
                     message_intent.putExtra("documentId", chat.getDocumentid());
                     message_intent.putExtra("receiverId", chat.getReceiverId());
-                    message_intent.putExtra("username", chat.getReceiverName());
+                    message_intent.putExtra("receiver_name", chat.getReceiverName());
                     message_intent.putExtra("receiverImage", chat.getReceiverImage());
                     mContext.startActivity(message_intent);
                 }
@@ -187,11 +194,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ChatsViewHolde
                      }
                  });
 
-    }
-
-    private String getItem(int position)
-    {
-        return String.valueOf(mChats.get(position).getReceiverName());
     }
 
     @Override

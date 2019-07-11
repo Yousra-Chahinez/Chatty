@@ -4,8 +4,12 @@ package com.example.azzem.chatty;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.azzem.chatty.Model.Messages;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.azzem.chatty.Adapter.GroupMessageAdapter;
@@ -34,7 +40,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.ServerTimestamp;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,8 +56,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GroupChatActivity extends AppCompatActivity {
     private FloatingActionButton btn_send_message;
-    private CircleImageView groupImage;
+    private ImageView groupImage;
     private TextView group_name, displayUsername;
+    private ImageButton btnAdd;
     private EditText text_send;
     private Toolbar toolbar;
     private String CurrentGroupName, CurrentUserID, CurrentUserName, currentDate, currentTime;
@@ -57,9 +68,13 @@ public class GroupChatActivity extends AppCompatActivity {
     private RecyclerView messages_recyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private Date currentTime2 = Calendar.getInstance().getTime();
+    private static final int GALLERY_PICK = 1;
+    private String documentId;
+
     FirebaseUser fuser;
     CollectionReference messageRef;
     DocumentReference infoGroupRef;
+    StorageReference mImageStorageRef;
     @ServerTimestamp
     Date date;
 
@@ -68,8 +83,12 @@ public class GroupChatActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
+
         //Initialize controllers
         initViews();
+
+        mImageStorageRef = FirebaseStorage.getInstance().getReference();
+
         mMessageList = new ArrayList<>();
         messages_recyclerView = findViewById(R.id.recycler_view_messages_group);
         messages_recyclerView.setHasFixedSize(true);
@@ -77,20 +96,30 @@ public class GroupChatActivity extends AppCompatActivity {
         mLinearLayoutManager = new LinearLayoutManager(GroupChatActivity.this);
         messages_recyclerView.setLayoutManager(mLinearLayoutManager);
         messages_recyclerView.setAdapter(groupMessageAdapter);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//for -->
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         assert fuser != null;
         CurrentUserID = fuser.getUid();
 
         Intent intent = getIntent();
-        final String documentId = intent.getStringExtra("documentId");
+        documentId = intent.getStringExtra("documentId");
         String groupName = intent.getStringExtra("groupName");
         String image_group = intent.getStringExtra("groupImage");
         System.out.println("groupImage3 " + image_group);
         System.out.println("document id " + documentId);
+
+        groupImage.setClipToOutline(true);
 
         group_name.setText(groupName);
         if (groupImage != null)
@@ -114,7 +143,6 @@ public class GroupChatActivity extends AppCompatActivity {
                                 if (documentSnapshot.exists()) {
                                     GroupsFireStore groupsFireStore = task.getResult().toObject(GroupsFireStore.class);
                                     Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData().get("imageUrl"));
-                                    System.out.println("ndjareb !!! " + documentSnapshot.getData().get("imageUrl"));
                                     if (groupsFireStore != null) {
                                         if (!groupsFireStore.getImageUrl().equals("default")) {
                                             Picasso.get().load(groupsFireStore.getImageUrl()).into(groupImage);
@@ -134,7 +162,7 @@ public class GroupChatActivity extends AppCompatActivity {
                 });
 
 
-        //--------------------------LISTENER TO SEND MESSAGE BUTTON-------------------------------//
+        //--------------------------LISTENER --> SEND MESSAGE BUTTON-------------------------------//
         btn_send_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -144,15 +172,28 @@ public class GroupChatActivity extends AppCompatActivity {
         });
         DisplayMessages();
         //----------------------------------------------------------------------------------------//
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setType("image/*");
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(Intent.createChooser(galleryIntent, "Select image"), GALLERY_PICK);//?
+            }
+        });
     }
 
-    private void initViews() {
+    private void initViews()
+    {
         btn_send_message = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.message_send);
         group_name = findViewById(R.id.group_name_textView);
-        displayUsername = findViewById(R.id.display_username);
+        //displayUsername = findViewById(R.id.display_username);
         groupImage = findViewById(R.id.groupImage);
         toolbar = findViewById(R.id.toolbar);
+        btnAdd = findViewById(R.id.btn_add);
     }
 
     private void sendMessageIntoDatabase()
@@ -188,6 +229,97 @@ public class GroupChatActivity extends AppCompatActivity {
             text_send.setText("");
         }
     }
+
+    //----------------------------------SEND IMAGE MESSAGE----------------------------------------//
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ///To identify the request i use GALLERY_PICK
+        //If the user is actually pick an image
+        //Now get the time
+        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK)
+        {
+            //I get the image uri from the user has selected
+            assert data != null;
+            Uri image_uri = data.getData();
+
+            CropImage.activity(image_uri)
+                    //maintain a square pixel image.
+                    //crop the image in square pixels.
+                    .setAspectRatio(1, 1)
+                    .start(GroupChatActivity.this);
+        }
+
+        //If the request code pass to the CropActivity.
+        //Make sure that the result which are getting is from the CropActivity they have created...
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK) {
+                //Give the uri of the data.
+                //Uri of the CroppedImage. !
+
+                Uri resultUri = result.getUri();
+
+                //Now store it this Uri in Firebase Storage.
+                //The last child is our file.
+                //In the last child i want to store the name of the image.
+                //To store a really good name store the id of the user every time the user store an image !
+
+                //---PUSHING IMAGE INTO STORAGE---
+                final StorageReference filepath = mImageStorageRef.child("message_images").child(documentId + ".jpg");
+
+                filepath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                final String download_url = uri.toString();
+                                Log.d("MessageActivity", "onSuccess: uri= " + uri.toString());
+                                Toast.makeText(getApplicationContext(), "Your picture Saved" +
+                                        " successfully", Toast.LENGTH_SHORT).show();
+
+                                //---Get time
+                                Calendar calForTime = Calendar.getInstance();
+                                //And for format pm, am...--> hh, time --> mm and ss for seconds if u want
+                                SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm");
+                                currentTime = currentTimeFormat.format(calForTime.getTime());
+                                //---------------------
+
+                                MessageG messageG = new MessageG(download_url, fuser.getUid(), "image");
+
+                                messageRef.add(messageG)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d("MessageActivity", "SUCCESS ADDING IMAGE");
+
+                                                Toast.makeText(GroupChatActivity.this, "SUCCESS ADDING IMAGE"
+                                                        , Toast.LENGTH_LONG).show();
+                                            }
+                                        })
+
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("MessageActivity", "FAILED ADDING MESSAGE");
+                                                Toast.makeText(GroupChatActivity.this, "FAILED ADDING" +
+                                                        "IMAGE " + download_url, Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                            }
+                        });
+                    }
+                });
+            } else {
+                Toast.makeText(GroupChatActivity.this, "Error in Uploading.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+//    //--------------------------------------------------------------------------------------------//
 
     private void DisplayMessages()
     {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.azzem.chatty.Model.User;
+import com.example.azzem.chatty.ProfileActivity;
 import com.example.azzem.chatty.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,7 +63,7 @@ public class UserAdapterHoriz extends RecyclerView.Adapter<UserAdapterHoriz.User
     @Override
     public void onBindViewHolder(@NonNull UsersViewHolder holder, int position)
     {
-         User user = mUsers.get(position);
+         final User user = mUsers.get(position);
 
          holder.username.setText(user.getUsername());
 
@@ -88,7 +89,9 @@ public class UserAdapterHoriz extends RecyclerView.Adapter<UserAdapterHoriz.User
             @Override
             public void onClick(View v)
             {
-                //Intent
+//                Intent profile_intent = new Intent(mContext, ProfileActivity.class);
+//                profile_intent.putExtra("userid", user.getId());
+//                mContext.startActivity(profile_intent);
             }
         });
 

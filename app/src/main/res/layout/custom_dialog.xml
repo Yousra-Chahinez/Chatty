@@ -18,15 +18,32 @@
         android:background="#FFFFFF"
         android:layout_gravity="center_horizontal">
 
-    <ImageButton
+    <Button
         android:id="@+id/addGroupImage"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="130dp"
-        android:src="@drawable/camera_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="@id/groupImage"
-        android:contentDescription="@string/group_image" />
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginTop="17dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/button_maker"
+        android:text="@string/choose_a_image"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:contentDescription="@string/group_image"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input"/>
+
+        <TextView
+            android:id="@+id/textSuccess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksandregular"
+            android:textColor="@android:color/black"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addGroupImage"/>
 
     <TextView
         android:id="@+id/descriptionTextAddGroup"
@@ -35,60 +52,51 @@
         android:gravity="center"
         android:text="@string/descriptionTextAddGroup"
         android:fontFamily="@font/quicksandregular"
-        android:textSize="18sp"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/groupImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/image"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTextAddGroup"/>
+        android:textSize="18sp"
+        android:textColor="@android:color/black"/>
 
      <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/input"
-            android:layout_width="200dp"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrqius"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="15dp"
+            android:maxLength="21"
             android:hint="@string/enter_a_group_name"
             android:fontFamily="@font/quicksandregular"
             app:met_floatingLabel="highlight"
-            app:layout_constraintTop_toBottomOf="@id/groupImage"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/descriptionTextAddGroup"/>
 
     <Button
         android:id="@+id/btn_create_group"
         android:layout_width="75dp"
         android:layout_height="40dp"
-        android:background="@drawable/button_maker"
-        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/quicksandbold"
         android:text="@string/create"
-        android:textSize="15sp"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/card_view_constraint_layout"
-        app:layout_constraintTop_toBottomOf="@id/input"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textSuccess"/>
 
     <Button
         android:id="@+id/btn_cancel_create_group"
         android:layout_width="75dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_maker_dialog"
+        android:background="@android:color/transparent"
         android:fontFamily="@font/quicksandbold"
         android:text="@string/cancel"
         android:textSize="15sp"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="#FBAD45"
+        android:textAllCaps="true"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/card_view_constraint_layout"
-        app:layout_constraintTop_toBottomOf="@id/input"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_create_group"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

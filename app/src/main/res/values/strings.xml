@@ -7,6 +7,7 @@
     <string name="Create_Account">CREATE ACCOUNT</string>
     <string name="username">Your name</string>
     <string name="email">Your E-Mail Address</string>
+    <string name="email2">E-Mail Address</string>
     <string name="mot_de_passe">Your Password</string>
     <string name="create_an_account_to_get_all_n_feature">Create an account to get all feature</string>
     <string name="register">Register</string>
@@ -49,7 +50,7 @@
     <string name="create_group">Create Group</string>
     <string name="please_write_your_message_here">Write your message here</string>
     <string name="search">Search...</string>
-    <string name="signup">Create \nAccount</string>
+    <string name="signup">Create \n Account</string>
     <string name="create_account_to_get_all_features">Create account to get all features.</string>
     <string name="home">Home</string>
     <string name="groups">Groups</string>
@@ -72,8 +73,7 @@
     <string name="recover_password">Recover password</string>
     <string name="enter_old_password">Current Password</string>
     <string name="change_password">\t Change password</string>
-    <string name="change_password_description">For your safety,
- we ask you to set yourself a secure password that contains both \n uppercase, lowercase letters as well as numbers.</string>
+    <string name="change_password_description">For your safety, we ask you to set yourself a secure password that contains both uppercase, lowercase letters as well as numbers.</string>
     <string name="clean_chat">Clean Chat</string>
     <string name="create_group_chat">Create group chat</string>
     <string name="alert_delete_account">This action is final and you will be unable to recover any data.</string>
@@ -95,7 +95,7 @@
     <string name="others">\t\t Others</string>
     <string name="change_profile_image">Change profile image</string>
     <string name="search2">Search</string>
-    <string name="serach_here">Search here...</string>
+    <string name="search_here">Search here...</string>
     <string name="descriptionTextAddGroup">Please select an image and enter a group name.</string>
     <string name="create">Create</string>
     <string name="close">Close</string>
@@ -107,7 +107,15 @@
     <string name="number2">70</string>
     <string name="insert_emodji">Insert Emodji</string>
     <string name="reset_password_description">Enter your email address below to receive your password reset instructions.</string>
-    <string name="users">Users</string>
-    <string name="send_message">Send message</string>
+    <string name="send_message">ADD +</string>
     <string name="msgs">Messages</string>
+    <string name="meet_new_people">Meet new people</string>
+    <string name="edit_profile">\t  Edit Profile</string>
+    <string name="change_your_name">\t Change your name</string>
+    <string name="change_about">\t Change about</string>
+    <string name="choose_friends">Choose Friends</string>
+    <string name="ok">Ok</string>
+    <string name="choose_a_image">Choose a image...</string>
+    <string name="success_uploading">Success Uploading...</string>
+    <string name="show_password">Show password</string>
 </resources>

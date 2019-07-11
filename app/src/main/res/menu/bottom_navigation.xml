@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/nav_chats"
           android:title="@string/chats"
-          android:icon="@drawable/chats_white"/>
+          android:icon="@drawable/chat"/>
     <item android:id="@+id/nav_groups"
           android:title="@string/groups"
           android:icon="@drawable/groups_icon"/>
     <item android:id="@+id/nav_home"
-          android:icon="@drawable/person_white"
+          android:icon="@drawable/person_ic"
           android:title="@string/home"/>
 </menu>

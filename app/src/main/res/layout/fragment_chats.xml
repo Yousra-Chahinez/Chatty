@@ -52,8 +52,7 @@
         android:drawableStart="@drawable/search_icon"
         android:background="@android:color/transparent"
         android:fontFamily="@font/quicksandregular"
-        android:gravity="center_vertical"
-        android:hint="@string/serach_here"/>
+        android:gravity="center_vertical"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -83,10 +82,9 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_search"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="41dp"
         app:fabCustomSize="40dp"
         android:visibility="gone"
         android:src="@drawable/search_icon"
@@ -133,6 +131,18 @@
                        app:layout_constraintTop_toBottomOf="@id/txtMessages"/>
 
                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <ImageView
+                    android:id="@+id/noMsgImg"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="50dp"
+                    android:visibility="gone"
+                    android:src="@drawable/image"
+                    android:contentDescription="@string/send_message"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtMessages"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

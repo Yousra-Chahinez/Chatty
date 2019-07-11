@@ -63,10 +63,10 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_create_group_options"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="35dp"
-        app:fabCustomSize="50dp"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_margin="30dp"
+        app:fabCustomSize="41dp"
         android:src="@drawable/add_groups"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/changecolor"
+    android:background="@drawable/registerhdpi"
     android:layout_gravity="center_horizontal"
     tools:context=".RegisterActivity">
 
@@ -70,9 +70,11 @@
         android:layout_marginTop="10dp"
         android:maxLength="21"
         android:backgroundTint="@android:color/white"
-        android:drawableEnd="@drawable/person_white"
+        android:drawableEnd="@drawable/person_ic"
         android:hint="@string/username"
         android:textColorHint="@android:color/white"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
         android:fontFamily="@font/quicksandregular"
         app:met_floatingLabel="highlight"
         android:inputType="text"/>
@@ -97,6 +99,8 @@
             android:drawableEnd="@drawable/email_ic_white"
             android:hint="@string/email"
             android:textColorHint="@android:color/white"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:fontFamily="@font/quicksandregular"
             android:inputType="textEmailAddress"
             app:met_floatingLabel="highlight"/>
@@ -122,6 +126,8 @@
         android:backgroundTint="@android:color/white"
         android:hint="@string/mot_de_passe"
         android:textColorHint="@android:color/white"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
         android:fontFamily="@font/quicksandregular"
         android:inputType="textPassword"
         app:met_floatingLabel="highlight"/>
@@ -133,8 +139,8 @@
         android:layout_width="65dp"
         android:layout_height="65dp"
         app:fabCustomSize="65dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="70dp"
         android:src="@drawable/ic_arrow"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/password2"/>

@@ -17,16 +17,20 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/bottom_navigationCard"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        app:cardCornerRadius="30dp"
+        android:layout_height="50dp"
         android:elevation="70dp"
+        app:cardBackgroundColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:background="@android:color/white"
+        app:itemIconSize="27.5dp"
+        app:itemIconTint="#A4AAB2"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
         android:theme="@style/Widget.BottomNavigationView"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation"/>

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter_your_name"
+        android:textColor="@android:color/black"
         android:textSize="17sp"
         android:fontFamily="@font/quicksandbold"/>
 
@@ -24,8 +25,9 @@
        android:id="@+id/input_username"
        android:layout_width="260dp"
        android:layout_height="35dp"
+        android:paddingStart="7dp"
        android:background="@drawable/edittextrqius"
-        android:maxLength="15"
+       android:maxLength="15"
        android:hint="@string/name"
        android:fontFamily="@font/quicksandregular"
        android:inputType="text"/>

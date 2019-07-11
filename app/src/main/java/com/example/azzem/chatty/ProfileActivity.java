@@ -2,6 +2,7 @@ package com.example.azzem.chatty;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity
+{
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private CircleImageView profileImage;
     private TextView username;
     private Button sendMsgBtn;
@@ -49,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        //Initialize controllers.
         initView();
 
         //From ChatAdapter.
@@ -60,6 +65,15 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userRef = FirebaseFirestore.getInstance();
         chatRef = FirebaseFirestore.getInstance();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         userRef.collection("Users")
                 .document(userid)
@@ -73,8 +87,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                             if (user1.getImageURL().equals("default"))
                             {
-                                String letter = String.valueOf(name.charAt(0));
-                                int color = 0;
+                                String letter = String.valueOf(name.toUpperCase().charAt(0));
+                                int color = R.color.colorPrimaryDark;
                                 TextDrawable drawable1 = TextDrawable.builder().buildRound(letter, color);
                                 profileImage.setBackground(drawable1);
                             }
@@ -102,6 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileImage = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
         sendMsgBtn = findViewById(R.id.SendMessageButton);
+        swipeRefreshLayout = findViewById(R.id.refresh_profile);
     }
 
     private void CreateChatRoom()

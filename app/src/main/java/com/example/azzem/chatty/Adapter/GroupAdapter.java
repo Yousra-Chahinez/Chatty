@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.azzem.chatty.GroupChatActivity;
@@ -44,15 +45,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.groupsViewHo
     public class groupsViewHolder extends RecyclerView.ViewHolder
     {
         public final TextView group_name;
-        public TextView user_name;
-        public final CircleImageView group_image;
+        public final ImageView group_image;
 
         public groupsViewHolder(@NonNull View itemView)
         {
             super(itemView);
             group_image = itemView.findViewById(R.id.group_image);
             group_name = itemView.findViewById(R.id.group_name);
-            user_name = itemView.findViewById(R.id.user_name);
+            group_image.setClipToOutline(true);
         }
     }
 

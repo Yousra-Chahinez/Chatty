@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +43,8 @@ import java.util.Map;
 
 public class UsersActivity extends AppCompatActivity
 {
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private RecyclerView recyclerViewUsers;
     private ChatsAdapter userAdapter;
     private List<User> mUsers;
@@ -67,6 +70,15 @@ public class UsersActivity extends AppCompatActivity
 
         userAdapter = new ChatsAdapter(UsersActivity.this, mUsers);
         recyclerViewUsers.setAdapter(userAdapter);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         //Current user.
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -107,6 +119,7 @@ public class UsersActivity extends AppCompatActivity
         mUsers = new ArrayList<>();
         recyclerViewUsers = findViewById(R.id.recycler_view_users);
         text_search = findViewById(R.id.search_editText);
+        swipeRefreshLayout = findViewById(R.id.refresh_users);
     }
 
     private void readUsers()

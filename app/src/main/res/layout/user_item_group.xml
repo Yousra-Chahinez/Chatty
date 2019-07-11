@@ -8,20 +8,20 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_width="45dp"
+        android:layout_height="45dp"/>
 
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="4dp"
         android:text="@string/username"
-        android:fontFamily="@font/quicksandregular"
-        android:textSize="16sp"
+        android:fontFamily="@font/quicksandbold"
+        android:textSize="15sp"
         android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/profile_image"
+        app:layout_constraintBottom_toBottomOf="@id/profile_image"
         app:layout_constraintLeft_toRightOf="@id/profile_image" />
 
     <CheckBox

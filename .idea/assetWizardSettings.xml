@@ -33,9 +33,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\AZZEM\Pictures\chatty_icon.png" />
                                       <entry key="outputName" value="password" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="5784ed" />
+                                      <entry key="themeColor" value="4d5b7b" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -70,6 +72,13 @@
                                       </entry>
                                     </map>
                                   </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="iconShape" value="NONE" />
+                                      <entry key="imageAsset" value="C:\Users\AZZEM\Pictures\chatty_icon.png" />
+                                    </map>
+                                  </option>
                                 </PersistentState>
                               </value>
                             </entry>
@@ -77,7 +86,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>
@@ -103,7 +112,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio1/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_navigate_before_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio1/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_person_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -115,7 +124,7 @@
                           <map>
                             <entry key="color" value="ffffff" />
                             <entry key="height" value="30" />
-                            <entry key="outputName" value="ic_before" />
+                            <entry key="outputName" value="person_ic" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\AZZEM" />
                             <entry key="width" value="30" />

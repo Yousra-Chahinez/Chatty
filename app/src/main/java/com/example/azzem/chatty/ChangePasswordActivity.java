@@ -1,16 +1,18 @@
 package com.example.azzem.chatty;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -22,8 +24,9 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 public class ChangePasswordActivity extends AppCompatActivity
 {
     private MaterialEditText old_password_text, new_password_text;
-    private Button btn_change_password;
-    private FloatingActionButton btn_cancel;
+    private FloatingActionButton btn_change_password;
+    private Toolbar toolbar;
+    private Button btn_cancel;
     private FirebaseUser fuser;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +35,19 @@ public class ChangePasswordActivity extends AppCompatActivity
         setContentView(R.layout.activity_change_password);
         //Initialize controllers
         initViews();
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Change password");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -105,16 +121,16 @@ public class ChangePasswordActivity extends AppCompatActivity
             }
         });
         //----LISTENER FOR CANCEL BUTTON
-        btn_cancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent cancel_intent = new Intent(ChangePasswordActivity.this, SettingsActivity.class);
-                startActivity(cancel_intent);
-                finish();
-            }
-        });
+//        btn_cancel.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                Intent cancel_intent = new Intent(ChangePasswordActivity.this, SettingsActivity.class);
+//                startActivity(cancel_intent);
+//                finish();
+//            }
+//        });
     }
 
     private void initViews()
@@ -123,6 +139,7 @@ public class ChangePasswordActivity extends AppCompatActivity
         new_password_text = findViewById(R.id.new_password_text);
         btn_change_password = findViewById(R.id.btn_change_password);
         btn_cancel = findViewById(R.id.btn_cancel);
+        toolbar = findViewById(R.id.toolbar);
     }
 
 

@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/quicksandbold</item>
+        <item name="android:statusBarColor">#5e6b88</item>
     </style>
 
     <style name="TextAppearance.App.TextInputLayout.ce.App.TextInputLayout" parent="@android:style/TextAppearance">
@@ -13,7 +15,11 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="MenuStyle" parent="Theme.AppCompat.Light">
+    <style name="backgroundColorToolBar">
+        <item name="android:background">@android:color/white</item>
+    </style>
+    
+    <style name="MenuStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="background">@android:color/white</item>
     </style>
 
@@ -30,4 +36,10 @@
     <style name="ToolbarTheme2" parent="@style/Base.TextAppearance.AppCompat.Title">
         <item name="android:textSize">23sp</item>
     </style>
+
+    <style name="CollapsingToolbarFont" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/quicksandbold</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 </resources>

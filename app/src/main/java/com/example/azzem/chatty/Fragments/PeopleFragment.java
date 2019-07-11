@@ -5,21 +5,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.Preference;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.azzem.chatty.Adapter.UserAdapter;
-import com.example.azzem.chatty.Model.Chats;
 import com.example.azzem.chatty.Model.User;
 import com.example.azzem.chatty.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +37,7 @@ public class PeopleFragment extends Fragment
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
-    private List<Chats> usersList;
+    //private List<Chats> usersList;
     private String receiver;
     public PeopleFragment()
     {
@@ -56,37 +50,37 @@ public class PeopleFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_people, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view_people);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        usersList = new ArrayList<>();
-
-        SharedPreferences preferences = inflater.getContext().getSharedPreferences("Receiver_id", Context.MODE_PRIVATE);
-        receiver = preferences.getString("userid", "");
-
-        reference = FirebaseDatabase.getInstance().getReference("Chats").child(firebaseUser.getUid());
-        reference.addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-//                usersList.clear();
-//                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-//                {
-//                    Chats chats = snapshot.getValue(Chats.class);
-//                    System.out.println("wech fiha chat.getValue "+ snapshot.getValue());
-//                    usersList.add(chats);
-//                }
-//                ChatList();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
-            }
-        });
+//        recyclerView = view.findViewById(R.id.recycler_view_people);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        usersList = new ArrayList<>();
+//
+//        SharedPreferences preferences = inflater.getContext().getSharedPreferences("Receiver_id", Context.MODE_PRIVATE);
+//        receiver = preferences.getString("userid", "");
+//
+//        reference = FirebaseDatabase.getInstance().getReference("Chats").child(firebaseUser.getUid());
+//        reference.addValueEventListener(new ValueEventListener()
+//        {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+//            {
+////                usersList.clear();
+////                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+////                {
+////                    Chats chats = snapshot.getValue(Chats.class);
+////                    System.out.println("wech fiha chat.getValue "+ snapshot.getValue());
+////                    usersList.add(chats);
+////                }
+////                ChatList();
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError)
+//            {
+//            }
+//        });
         return view;
     }
 

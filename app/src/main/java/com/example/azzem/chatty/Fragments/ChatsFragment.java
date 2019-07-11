@@ -80,8 +80,7 @@ public class ChatsFragment extends Fragment
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        userAdapter = new UserAdapter(getContext(), mChats);
-        recyclerView.setAdapter(userAdapter);
+
         //-----------------------------------------//
 
         //---Horizontal recycler view.
@@ -107,7 +106,11 @@ public class ChatsFragment extends Fragment
             }
         });
 
+
+        userAdapter = new UserAdapter(getContext(), mChats);
+        recyclerView.setAdapter(userAdapter);
         readReceivers();
+
         readUsers();
 
         return view;

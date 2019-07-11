@@ -44,7 +44,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsViewHol
 
     public class ChatsViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView username, last_message, time_text;
+        private TextView username, last_message, time_text, textAbout;
         private CircleImageView profile_image;
         public CircleImageView img_on, img_off;
 
@@ -53,10 +53,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsViewHol
             super(itemView);
             username = itemView.findViewById(R.id.username);
             profile_image = itemView.findViewById(R.id.profile_image);
-            img_off = itemView.findViewById(R.id.img_off);
-            img_on = itemView.findViewById(R.id.img_on);
             last_message = itemView.findViewById(R.id.last_message);
             time_text = itemView.findViewById(R.id.time_text_view);
+            textAbout = itemView.findViewById(R.id.about_text);
         }
     }
 
@@ -74,12 +73,14 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsViewHol
         final User user = mUsers.get(position);
         chatsViewHolder.username.setText(user.getUsername());
 
+        chatsViewHolder.textAbout.setText(user.getAbout());
+
         chatsViewHolder.last_message.setVisibility(View.GONE);
         chatsViewHolder.time_text.setVisibility(View.GONE);
 
         if(user.getImageURL().equals("default"))
         {
-            String letter = String.valueOf(user.getUsername().charAt(0));
+            String letter = String.valueOf(user.getUsername().toUpperCase().charAt(0));
 
             int color = R.color.colorPrimaryDark;
             TextDrawable drawable = TextDrawable.builder().buildRound(letter, color); // radius in px

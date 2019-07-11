@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Messages
 {
-    private String message, type, from;
+    private String documentId, message, type, from;
     private String time;
     private boolean seen;
     @ServerTimestamp
@@ -81,6 +81,15 @@ public class Messages
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Exclude
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }
 
